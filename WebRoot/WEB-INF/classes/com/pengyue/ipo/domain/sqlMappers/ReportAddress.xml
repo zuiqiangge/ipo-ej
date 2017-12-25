@@ -1,0 +1,17 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+ "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.pengyue.ipo.dao.news.ReportAddressDaoImpl">
+	<resultMap id="BaseResultMap" type="com.pengyue.ipo.bean.ReportAddress">
+		<result column="code" property="code" />
+		<result column="define" property="define" />
+	</resultMap>
+	
+	<!-- 查询所有 -->
+	<select id="FindAllReportAddress" resultMap="BaseResultMap">
+		select code,define
+		from tb_report_address
+	</select>
+
+</mapper>

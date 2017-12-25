@@ -1,0 +1,22 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE configuration PUBLIC "-//mybatis.org//DTD Config 3.0//EN" "http://mybatis.org/dtd/mybatis-3-config.dtd">
+<configuration>
+	<typeAliases>
+	</typeAliases>
+	<mappers>
+		<mapper resource="com/pengyue/ipo/domain/sqlMappers/TbXtYhxxMapper.xml" />
+		<mapper resource="com/pengyue/ipo/domain/sqlMappers/News.xml" />
+		<mapper resource="com/pengyue/ipo/domain/sqlMappers/CollectionClass.xml" />
+		<mapper resource="com/pengyue/ipo/domain/sqlMappers/TbXtFourmCollect.xml" />
+		<mapper resource="com/pengyue/ipo/domain/sqlMappers/TbXtFourmReplay.xml" />
+		<mapper resource="com/pengyue/ipo/domain/sqlMappers/TbXtTask.xml" />
+		<mapper resource="com/pengyue/ipo/domain/sqlMappers/TbXtSource.xml" />
+		<mapper resource="com/pengyue/ipo/domain/sqlMappers/TbXtTaskRes.xml" />
+		<mapper resource="com/pengyue/ipo/domain/sqlMappers/Report.xml" />
+		<mapper resource="com/pengyue/ipo/domain/sqlMappers/ReportAddress.xml" />
+		<mapper resource="com/pengyue/ipo/domain/sqlMappers/ReportRecord.xml" />
+		<mapper resource="com/pengyue/ipo/domain/sqlMappers/RegionKeyword.xml" />
+		<mapper resource="com/pengyue/ipo/domain/sqlMappers/NewsSsdq.xml" />
+		<mapper resource="com/pengyue/ipo/domain/sqlMappers/NewsKeyword.xml" />
+	</mappers>
+</configuration>

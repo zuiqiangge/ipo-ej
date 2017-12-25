@@ -1,0 +1,131 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE struts PUBLIC "-//Apache Software Foundation//DTD Struts Configuration 2.1//EN" "http://struts.apache.org/dtds/struts-2.1.dtd">
+<struts>
+	<constant name="struts.i18n.encoding" value="UTF-8" />
+	<!--
+		指定默认编码集
+		，作用于HttpServletRequest的setCharacterEncoding（）和freemarker，vilocity的输出
+	-->
+	<constant name="struts.configuration.xmlreload" value="true" />
+	<!--  <constant name="struts.action.extension" value=" ," /> -->
+	<!-- 当struts配置文件修改时是否自动加载 -->
+	<constant name="struts.devMode" value="true" />
+	<bean type="org.apache.struts2.dispatcher.multipart.MultiPartRequest"
+		name="myRequestParser" class="com.pengyue.ipo.action.RequestParseWrapper"
+		scope="default" optional="true" />
+	<constant name="struts.multipart.parser" value="myRequestParser" />
+	<constant name="struts.multipart.maxSize" value="804857600" />
+	<!-- 开发模式下打印详细的错误信息 -->
+	<constant name="struts.ui.theme" value="xhtml" />
+	<!-- 允许调用静态方法 -->
+	<constant name="struts.ognl.allowStaticMethodAccess" value="true"/>
+	
+	<package name="interceptorAll" extends="struts-default">
+		<interceptors>
+			<!-- 是否超时拦截器 -->
+			<interceptor name="isLoginOut"
+				class="com.pengyue.ipo.interceptor.IsLoginOutInterceptor">
+			</interceptor>
+			<interceptor name="ffzfint"
+				class="com.pengyue.ipo.interceptor.ffzfInterceptor">
+			</interceptor>
+			<interceptor name="apserviceInterceptor"
+				class="com.pengyue.ipo.interceptor.AppserviceInterceptor">
+			</interceptor>
+			<!-- 拦截器栈 -->
+			<interceptor-stack name="mydefault">
+				<interceptor-ref name="defaultStack" />
+				<interceptor-ref name="isLoginOut" />
+			</interceptor-stack>
+			<interceptor-stack name="ffzfdefault">
+				<interceptor-ref name="defaultStack" />
+				<interceptor-ref name="ffzfint" />
+			</interceptor-stack>
+			<interceptor-stack name="appservicedefault">
+				<interceptor-ref name="defaultStack" />
+				<interceptor-ref name="apserviceInterceptor" />
+			</interceptor-stack>
+		</interceptors>
+
+		<!-- 默认拦截器 -->
+		<default-interceptor-ref name="mydefault" />
+		<!-- 处理结果 -->
+		<global-results>
+			<result name="logout">/main/login/login.jsp</result>
+			<result name="errorRequest">/user/errorRequest.jsp</result>
+		</global-results>
+	</package>
+	<!--系统	-->
+	<package name="home" namespace="/" extends="interceptorAll">
+		<action name="home_*" class="tbXtYhxxAction" method="{1}">
+			<result name="inputwa">/main/login/login.jsp</result>
+			<result type="chain" name="gotohome">search_index</result>
+			<result name="userList">/main/home/userList.jsp</result>
+			<result name="loginJsp">/</result>
+			<interceptor-ref name="mydefault" />
+		</action>
+		
+	</package>
+
+	<package name="search" namespace="/" extends="interceptorAll">
+		<action name="search_*" class="searchAction" method="{1}">
+			<result name="inputwa">/main/login/login.jsp</result>
+			<result name="tohome">/main/home/home.jsp</result>
+			<result name="tosearch">/main/home/index3.jsp</result>
+			<interceptor-ref name="mydefault" />
+		</action>
+	</package>
+	
+	<package name="taskIndex" namespace="/" extends="interceptorAll">
+		<action name="taskIndex_*" class="com.pengyue.ipo.action.collect.TaskIndexAction" method="{1}">
+			<result name="createTask">/main/home/createTask.jsp</result>
+			<result name="taskList1">/main/home/taskList1.jsp</result>
+			<result name="taskDetail">/main/home/taskDetail.jsp</result>
+			<result name="taskIndex">/main/home/taskIndex.jsp</result>
+			<interceptor-ref name="mydefault"/>
+		</action>
+	</package>
+
+	<package name="collect" namespace="/" extends="interceptorAll">
+		<action name="col_*" class="com.pengyue.ipo.action.collect.CollectAction" method="{1}">
+			<result name="{1}">/main/home/createTask.jsp</result>
+			<interceptor-ref name="mydefault" />
+		</action>
+	</package>
+	
+	<package name="news" namespace="/" extends="interceptorAll">
+		<action name="news_*" class="com.pengyue.ipo.action.news.NewsAction" method="{1}">
+		<result name="keyWordList">/main/home/keywordList.jsp</result>
+		<interceptor-ref name="mydefault" />
+		</action>
+	</package>
+	
+	<package name="report" namespace="/" extends="interceptorAll">
+		<action name="report_*" class="com.pengyue.ipo.action.news.ReportAction" method="{1}">
+			<result name="reportHome">/main/home/reportHome.jsp</result>
+			<result name="createReport">/main/home/createReport.jsp</result>
+			<result name="reportList" type="redirectAction">report_findReportPage</result>
+			<result name="openWord" type="redirect">/main/viewWord.jsp</result>
+			<result name="reportView">/main/reportpreview/index.jsp</result>
+			<result name="dhgjldr">/main/reportpreview/elements.jsp</result>
+			<result name="yqgs" type="redirect">report_reportView.action?reportId=${reportId}</result>
+			<result name="yqdesc" type="redirect">report_findRecordByCode.action?reportId=${reportId}&amp;addresscode=${addresscode}</result>
+			<interceptor-ref name="mydefault" />
+		</action>
+	</package>
+	
+	<package name="regionkeyword" namespace="/" extends="interceptorAll">
+		<action name="regionkeyword_*" class="regionKeywordAction" method="{1}">
+			<result name="findAllSuccess">/main/home/regionkeyword.jsp</result>
+			<result name="updateSuccess" type="redirect">regionkeyword_findAll.action?keyword.ssdq=${keyword.ssdq}</result>
+			<interceptor-ref name="mydefault" />
+		</action>
+	</package>
+
+	<package name="activeMq" namespace="/" extends="interceptorAll">
+		<action name="activeMq_*" class="com.pengyue.ipo.action.ActivemqController" method="{1}">
+			<interceptor-ref name="mydefault" />
+		</action>
+	</package>
+
+</struts>

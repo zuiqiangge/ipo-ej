@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+ "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.pengyue.ipo.dao.system.TbXtFourmCollectImpl">
+		<!-- int savePost(TbXtCollect tbXtCollect); -->
+		<insert id="savePost" parameterType="com.pengyue.ipo.bean.TbXtCollect">
+			insert into TB_XT_FOURMCOLLECT
+					(ID,TITLE,URL,REPLAYCOUNTS,PUBNISIHUSER,PUBNISIHTIME,COLLECTTIME,ETLGXSJ,SOURCEID,CLICKEDCOUNTS,CONTEXT,TYTIME,ZLM)
+			values 
+					(#{id},#{title},#{url},#{replaycounts},#{pubnisihuser},#{pubnisihtime},#{collecttime},to_date(#{etlgxsj},'yyyy-mm-dd hh24:mi:ss'),#{sourceid},#{clickedcounts},#{context},#{tytime},#{zlm})
+		</insert>
+		
+		<!-- int count();  -->
+		<select id="count" parameterType="string" resultType="int">
+			select count(*)
+			from TB_XT_FOURMCOLLECT
+			where url=#{url}
+		</select>
+</mapper>

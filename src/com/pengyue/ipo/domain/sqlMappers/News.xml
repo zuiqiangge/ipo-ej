@@ -1,0 +1,340 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+ "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.pengyue.ipo.dao.news.NewsDaoImpl">
+	<!-- Result Map-->
+	<resultMap id="BaseResultMap" type="com.pengyue.ipo.bean.News">
+		<result column="id" property="id" />
+		<result column="title" property="title" />
+		<result column="pubnisihTime" property="pubnisihTime" />
+		<result column="sourceId" property="sourceId" />
+		<result column="clickedCounts" property="clickedCounts" />
+		<result column="describe" property="describe" />
+		<result column="context" property="context" />
+		<result column="url" property="url" />
+		<result column="etlgxsj" property="etlgxsj" />
+		<result column="sourceName" property="sourceName" />
+		<result column="fid" property="fid" />
+		<result column="fname" property="fname" />
+		<result column="title_mh" property="title_mh" />
+		<result column="pubnisihTime_sj" property="pubnisihTime_sj" />
+		<result column="context_mh" property="context_mh" />
+		<result column="image" property="image" />
+		<result column="zlm" property="zlm" />
+		<result column="pubnisihuser" property="pubnisihuser" />
+		<result column="ssdq" property="ssdq" />
+		<result column="ssdqname" property="ssdqname" />
+		<result column="rqnyr" property="rqnyr" />
+	</resultMap>
+	<select id="FindCountByUrl" parameterType="java.lang.String"
+		resultType="java.lang.Integer">
+		select count(*)
+		from TB_XT_NEWSCOLLECT
+		where url=#{url}
+	</select>
+
+	<!-- 批量插入sql配置 -->
+	<insert id="BatchInsertNews" parameterType="java.util.List">
+		insert into TB_XT_NEWSCOLLECT (id, title, pubnisihtime, sourceid,
+		clickedcounts, describe, context, url, etlgxsj)
+		<foreach collection="list" item="item" index="index"
+			separator="union all">
+			select
+			sys_guid(), #{item.title}, #{item.pubnisihTime},
+			#{item.sourceId},
+			#{item.clickedCounts}
+			, #{item.describe},
+			#{item.context,jdbcType=CLOB}, #{item.url},
+			sysdate
+			from dual
+		</foreach>
+	</insert>
+
+	<insert id="InsertNews" parameterType="com.pengyue.ipo.bean.News">
+		insert into
+		TB_XT_NEWSCOLLECT (id, title, pubnisihtime, sourceid,
+		clickedcounts,
+		describe, context, url, etlgxsj, pubnisihtime_new, zlm, ssdq)
+		values
+		(#{id},
+		#{title},
+		#{pubnisihTime}, #{sourceId}, #{clickedCounts}
+		,
+		#{describe},
+		#{context,jdbcType=CLOB}, #{url}, sysdate,
+		to_char(to_date(#{pubnisihTime},'yyyy-MM-dd
+		HH24:mi:ss'),'yyyyMMddHH24miss'),#{zlm},#{ssdq})
+  	</insert>
+	<!-- 获取需要更新的News -->
+	<!-- 查询登陆用户根据loginid -->
+	<select id="selectNewsNeedUpdate" resultMap="BaseResultMap"
+		parameterType="java.lang.String">
+		select
+		t1.id,t1.title,t1.pubnisihTime,t1.sourceId,t1.clickedCounts,t1.describe,t1.context
+		,t1.url,t1.etlgxsj,t1.ssdq,t3.define as ssdqname,substr(t1.PUBNISIHTIME_NEW,0,8) as rqnyr, t2.name as
+		sourceName,t2.fid,t2.fname, t1.title as title_mh,t1.PUBNISIHTIME_NEW as
+		pubnisihTime_sj,
+		t1.context as context_mh,t1.zlm,t2.image,'' as pubnisihuser
+		from
+		tb_xt_newscollect
+		t1,(select t1.id,t1.name,t1.fid,t2.name as fname,t2.image
+		from TB_XT_SOURCE
+		t1,TB_XT_SOURCE t2
+		where t1.fid=t2.id
+		union
+		select t1.id,t1.name,t1.id as
+		fid,t1.name as fname,t1.image from TB_XT_SOURCE t1
+		where t1.fid is null
+		) t2,
+		TB_XT_NEWSSSDQ t3
+		where
+		t1.sourceid=t2.id and t1.etlgxsj between
+		to_date(to_char(sysdate-1,'yyyymmdd')||'235959','yyyymmddhh24miss')
+		and to_date(to_char(sysdate,'yyyymmdd')||'235959','yyyymmddhh24miss')
+		t1.ssdq=t3.code
+	</select>
+
+	<select id="selectNewsNeedUpdateBySource" resultMap="BaseResultMap"
+		parameterType="map">
+		select * from (
+        select t.*,ROWNUM as rowhang from (
+		select
+		t1.id,t1.title,t1.pubnisihTime,t1.sourceId,t1.clickedCounts,t1.describe,t1.context
+		,t1.url,t1.etlgxsj,t1.ssdq,t3.define as ssdqname,substr(t1.PUBNISIHTIME_NEW,0,8) as rqnyr, t2.name as
+		sourceName,t2.fid,t2.fname, t1.title as title_mh,t1.PUBNISIHTIME_NEW as
+		pubnisihTime_sj,
+		t1.context as context_mh,t1.zlm,t2.image,'' as pubnisihuser
+		from
+		tb_xt_newscollect
+		t1,(select t1.id,t1.name,t1.fid,t2.name as fname,t2.image
+		from TB_XT_SOURCE
+		t1,TB_XT_SOURCE t2
+		where t1.fid=t2.id
+		union
+		select t1.id,t1.name,t1.id as
+		fid,t1.name as fname,t1.image from TB_XT_SOURCE t1
+		where t1.fid is null
+		) t2,
+		TB_XT_NEWSSSDQ t3
+		where
+		t1.sourceid=t2.id and t1.etlgxsj between
+		to_date(to_char(sysdate-10,'yyyymmdd')||'235959','yyyymmddhh24miss')
+		and to_date(to_char(sysdate,'yyyymmdd')||'235959','yyyymmddhh24miss')
+		and t1.sourceid=#{sourceid}
+		and t1.ssdq=t3.code
+		)  t where  ROWNUM<![CDATA[<]]>=#{end}
+		) t where rowhang>=#{start}
+    </select>
+    
+    <select id="selectNewsUpdateByIds" resultMap="BaseResultMap"
+		parameterType="list">
+		select
+		t1.id,t1.title,t1.pubnisihTime,t1.sourceId,t1.clickedCounts,t1.describe,t1.context
+		,t1.url,t1.etlgxsj,t1.ssdq,t3.define as ssdqname,substr(t1.PUBNISIHTIME_NEW,0,8) as rqnyr, t2.name as
+		sourceName,t2.fid,t2.fname, t1.title as title_mh,t1.PUBNISIHTIME_NEW as
+		pubnisihTime_sj,
+		t1.context as context_mh,t1.zlm,t2.image,'' as pubnisihuser
+		from
+		tb_xt_newscollect
+		t1,(select t1.id,t1.name,t1.fid,t2.name as fname,t2.image
+		from TB_XT_SOURCE
+		t1,TB_XT_SOURCE t2
+		where t1.fid=t2.id
+		union
+		select t1.id,t1.name,t1.id as
+		fid,t1.name as fname,t1.image from TB_XT_SOURCE t1
+		where t1.fid is null
+		) t2,
+		TB_XT_NEWSSSDQ t3
+		where
+		t1.sourceid=t2.id
+		and t1.ssdq=t3.code
+		and t1.id in 
+		<foreach item="ids" index="index" collection="list"  open="(" separator="," close=")">
+           	#{ids}
+        </foreach>
+    </select>
+
+
+	<select id="selectNewsNeedcountUpdateBySource" resultType="int"
+		parameterType="java.lang.String">
+		select count(*)
+		from
+		tb_xt_newscollect
+		t1,(select t1.id,t1.name,t1.fid,t2.name as fname,t2.image
+		from TB_XT_SOURCE
+		t1,TB_XT_SOURCE t2
+		where t1.fid=t2.id
+		union
+		select t1.id,t1.name,t1.id as
+		fid,t1.name as fname,t1.image from TB_XT_SOURCE t1
+		where t1.fid is null
+		) t2
+		where
+		t1.sourceid=t2.id and t1.etlgxsj between
+		to_date(to_char(sysdate-10,'yyyymmdd')||'235959','yyyymmddhh24miss')
+		and to_date(to_char(sysdate,'yyyymmdd')||'235959','yyyymmddhh24miss')
+		and t1.sourceid=#{sourceid}
+    </select>
+
+
+	<select id="selectSourceList" resultType="java.lang.String"
+		parameterType="java.lang.String">
+		select id from TB_XT_SOURCE t
+	 
+    </select>
+
+
+	<!-- 查询所有采集网站 -->
+	<select id="findAllParentSource" resultType="java.util.HashMap">
+		select id,name,fid
+		from TB_XT_SOURCE
+		where fid is null
+    </select>
+
+	<!-- 查询采集关键字 -->
+	<select id="findNewsKeyword" resultType="java.util.HashMap">
+		SELECT * FROM
+		(SELECT keyword FROM TB_XT_SEARCH_KEYWORD ORDER BY
+		adddate)
+		WHERE ROWNUM<![CDATA[<]]>=6
+	</select>
+
+	<!-- 通过中立面和时间段统计数量 -->
+	<select id="findCountByZlmAndTime" parameterType="map"
+		resultType="java.lang.Integer">
+		select count(*)
+		from tb_xt_newscollect
+		where
+		to_date(pubnisihtime_new,'yyyyMMddHH24miss') >= to_date(#{startTime},'yyyyMMddHH24miss')
+		and to_date(pubnisihtime_new,'yyyyMMddHH24miss') <![CDATA[<]]>=
+		to_date(#{endTime},'yyyyMMddHH24miss')
+		and zlm = #{zlm}
+	</select>
+	
+	<!-- groupBySsdq -->
+	<select id="groupBySsdq" parameterType="map" resultType="java.util.HashMap">
+		select t.define define ,sum(
+		 case when con is null
+		   then 0
+		     else con
+		       end
+		) count
+	    from 
+	      TB_XT_NEWSSSDQ t  ,
+	      (
+	        select ssdq ,count(*) as con
+	        from TB_XT_NEWSCOLLECT t1,TB_XT_NEWSSSDQ t2
+	        where
+	          to_date(pubnisihtime_new,'yyyyMMddHH24miss') >= to_date(#{startTime},'yyyyMMddHH24miss')
+	          and to_date(pubnisihtime_new,'yyyyMMddHH24miss') <![CDATA[<]]>= to_date(#{endTime},'yyyyMMddHH24miss')
+	          and t1.ssdq =t2.code
+	        group by ssdq
+	      ) t2  where t.code = t2.ssdq(+)
+	      group by t.define
+	</select>
+
+	<!-- 高热度话题 -->
+	<select id="findGrdyqht" parameterType="map" resultMap="BaseResultMap">
+		select id,title
+		from tb_xt_newscollect
+		where
+		to_date(pubnisihtime_new,'yyyyMMddHH24miss') >=
+		to_date(#{startTime},'yyyyMMddHH24miss')
+		and to_date(pubnisihtime_new,'yyyyMMddHH24miss') <![CDATA[<]]>=
+		to_date(#{endTime},'yyyyMMddHH24miss')
+		and to_number(nvl(replace(clickedcounts,',',''),'0')) >= #{viewNum}
+		union all
+		select id,title
+		from
+		tb_xt_fourmcollect
+		where
+		to_date(tytime,'yyyyMMddHH24miss') >= to_date(#{startTime},'yyyyMMddHH24miss')
+		and to_date(tytime,'yyyyMMddHH24miss') <![CDATA[<]]>=
+		to_date(#{endTime},'yyyyMMddHH24miss')
+		and to_number(nvl(replace(clickedcounts,',',''),'0')) >= #{viewNum}
+	</select>
+	
+	<!-- findNewsBySSDQ -->
+	<select id="findNewsBySSDQ" parameterType="map" resultMap="BaseResultMap">
+		select *
+		from
+		(
+		select t1.id,t1.title,t1.url,t1.describe,t1.pubnisihtime_new pubnisihTime_sj,
+		(select t3.name from TB_XT_SOURCE t3 where t3.id = t2.fid) sourceName
+		from TB_XT_NEWSCOLLECT t1,TB_XT_SOURCE t2
+		where
+			to_date(t1.pubnisihtime_new,'yyyyMMddHH24miss') >= to_date(#{startTime},'yyyyMMddHH24miss')
+			and to_date(t1.pubnisihtime_new,'yyyyMMddHH24miss') <![CDATA[<]]>= to_date(#{endTime},'yyyyMMddHH24miss')
+			and t1.ssdq = #{ssdq}
+			and t1.sourceid = t2.id
+		order by pubnisihtime_new desc
+		)
+		where rownum <![CDATA[<]]>= 5
+	</select>
+	
+	<!-- findNewsCountByZlm -->
+	<select id="findNewsCountByZlm" parameterType="map" resultType="java.util.HashMap">
+		select t.define define ,sum(
+		 case when con is null
+		   then 0
+		     else con
+		       end
+		) count
+	    from 
+	      TB_XT_NEWSSSDQ t  ,
+	      (
+	        select ssdq ,count(*) as con
+	        from TB_XT_NEWSCOLLECT t1,TB_XT_NEWSSSDQ t2
+	        where
+	          to_date(pubnisihtime_new,'yyyyMMddHH24miss') >= to_date(#{startTime},'yyyyMMddHH24miss')
+	          and to_date(pubnisihtime_new,'yyyyMMddHH24miss') <![CDATA[<]]>= to_date(#{endTime},'yyyyMMddHH24miss')
+	          and t1.ssdq =t2.code
+	          and t1.zlm = #{zlm}
+	        group by ssdq
+	      ) t2  where t.code = t2.ssdq(+)
+	      group by t.define
+	</select>
+	
+	<!-- yqrdList -->
+	<select id="yqrdListByRownum" parameterType="map" resultMap="BaseResultMap">
+		select *
+		from
+		(
+		select id,title,clickedcounts,pubnisihtime_new
+		from TB_XT_NEWSCOLLECT
+		where 
+			to_date(pubnisihtime_new,'yyyyMMddHH24miss') >= to_date(#{startTime},'yyyyMMddHH24miss')
+	        and to_date(pubnisihtime_new,'yyyyMMddHH24miss') <![CDATA[<]]>= to_date(#{endTime},'yyyyMMddHH24miss')
+	    order by to_number(clickedcounts) desc
+	    )
+	    where rownum <![CDATA[<]]>= #{rownum}
+	</select>
+	
+	<!-- selectToDayNewsCount -->
+	<select id="selectToDayNewsCount" resultType="java.lang.Integer">
+		select count(*)
+		from TB_XT_NEWSCOLLECT
+		where etlgxsj >= to_date(to_char(sysdate,'yyyyMMdd')||'000000','yyyyMMddHH24miss')
+	</select>
+	<!-- selectToDayNews -->
+	<select id="selectToDayNews" parameterType="map" resultMap="BaseResultMap">
+		select * 
+		from
+		(select id,title,describe,context,rownum rn
+		from TB_XT_NEWSCOLLECT
+		where etlgxsj >= to_date(to_char(sysdate,'yyyyMMdd')||'000000','yyyyMMddHH24miss')
+			  and rownum <![CDATA[<]]>= #{end}
+		)
+		where rn >= #{start}
+	</select>
+	
+	<!-- updateNewsClickedcounts -->
+	<update id="updateNewsClickedcounts" parameterType="com.pengyue.ipo.bean.News">
+		update TB_XT_NEWSCOLLECT
+		set clickedcounts = #{clickedCounts}
+		where id = #{id}
+	</update>
+
+</mapper>

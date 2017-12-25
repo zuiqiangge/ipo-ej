@@ -1,0 +1,57 @@
+.icon_approve_co {
+  background-position: 0 -75px;
+}
+.icon_approve {
+  background-position: 0 -50px;
+}
+.icon_approve_dead {
+  background-position: 0 -100px;
+}
+.icon_club {
+  background-position: 0 -125px;
+}
+.icon_approve, .icon_approve_co, .icon_approve_dead {
+  width: 14px;
+  height: 14px;
+  margin-left: 3px;
+  vertical-align: -2px;
+  vertical-align: text-bottom\9;
+}
+.icon_club, .icon_vlady {
+  width: 13px;
+  height: 14px;
+  margin-left: 3px;
+  vertical-align: -2px;
+  vertical-align: text-bottom\9;
+}
+/*会员等级*/
+.icon_member1 {
+  background-position: -25px 0;
+}
+.icon_member2 {
+  background-position: -25px -25px;
+}
+.icon_member3 {
+  background-position: -25px -50px;
+}
+.icon_member4 {
+  background-position: -25px -75px;
+}
+.icon_member5 {
+  background-position: -25px -100px;
+}
+.icon_member6 {
+  background-position: -25px -125px;
+}
+.icon_member1, .icon_member2, .icon_member3, .icon_member4, .icon_member5, .icon_member6, .icon_member1_dis, .icon_member2_dis, .icon_member3_dis, .icon_member4_dis, .icon_member5_dis, .icon_member6_dis, .icon_suishoupai2014, .icon_run2015 {
+  width: 16px;
+  height: 14px;
+  vertical-align: -2px;
+  vertical-align: text-bottom\9;
+  margin-left: 3px;
+}
+.W_icon {
+  display: inline-block;
+  background-image: url("../images/icon.png");
+  background-repeat: no-repeat;
+}

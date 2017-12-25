@@ -1,0 +1,32 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+    xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" 
+    xmlns:jaxws="http://cxf.apache.org/jaxws"
+    xsi:schemaLocation="http://www.springframework.org/schema/beans
+                       http://www.springframework.org/schema/beans/spring-beans.xsd
+                       http://cxf.apache.org/jaxws http://cxf.apache.org/schemas/jaxws.xsd">
+    <!-- 
+        ***注意*** 
+        手动添加的内容：
+        xmlns:jaxws="http://cxf.apache.org/jaxws"
+        http://cxf.apache.org/jaxws http://cxf.apache.org/schemas/jaxws.xsd"
+     -->
+    
+    <import resource="classpath:META-INF/cxf/cxf.xml" />
+    <import resource="classpath:META-INF/cxf/cxf-extension-soap.xml" />
+    <import resource="classpath:META-INF/cxf/cxf-servlet.xml" />
+
+    <bean id="client1" class="com.pengyue.bbsTools.webservice.dao.HelloWorld" factory-bean="clientFactory1" factory-method="create" />
+
+    <bean id="clientFactory1" class="org.apache.cxf.jaxws.JaxWsProxyFactoryBean">
+        <property name="serviceClass" value="com.pengyue.bbsTools.webservice.dao.HelloWorld" />
+        <property name="address" value="http://192.168.1.111/webservice/HelloWorld" />
+    </bean>
+    
+    <bean id="client2" class="com.pengyue.bbsTools.webservice.dao.HelloWorld" factory-bean="clientFactory2" factory-method="create" />
+
+    <bean id="clientFactory2" class="org.apache.cxf.jaxws.JaxWsProxyFactoryBean">
+        <property name="serviceClass" value="com.pengyue.bbsTools.webservice.dao.HelloWorld" />
+        <property name="address" value="http://127.0.0.1/webservice/HelloWorld" />
+    </bean>
+</beans>

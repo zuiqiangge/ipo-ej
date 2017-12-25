@@ -1,0 +1,217 @@
+@font-face {
+  font-family: 'icomoon';  /* project id 160628 */
+  src: url('//at.alicdn.com/t/font_0bt0csjeds1nhfr.eot');
+  src: url('//at.alicdn.com/t/font_0bt0csjeds1nhfr.eot?#iefix') format('embedded-opentype'),
+  url('//at.alicdn.com/t/font_0bt0csjeds1nhfr.woff') format('woff'),
+  url('//at.alicdn.com/t/font_0bt0csjeds1nhfr.ttf') format('truetype'),
+  url('//at.alicdn.com/t/font_0bt0csjeds1nhfr.svg#icomoon') format('svg');
+}       
+                    
+[class^="icon-"], [class*=" icon-"] {
+    /* use !important to prevent issues with browser extensions that change fonts */
+    font-family: 'icomoon' !important;
+    speak: none;
+    font-style: normal;
+    font-weight: normal;
+    font-variant: normal;
+    text-transform: none;
+    line-height: 1;
+
+    /* Better Font Rendering =========== */
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
+}
+.icon-class-beauty:before { content: "\e66c"; }
+.icon-class-car:before { content: "\e66d"; }
+.icon-class-computer:before { content: "\e66e"; }
+.icon-class-education:before { content: "\e66f"; }
+.icon-class-finance:before { content: "\e670"; }
+.icon-class-food:before { content: "\e671"; }
+.icon-class-phone:before { content: "\e672"; }
+.icon-class-homeappliance:before { content: "\e673"; }
+.icon-class-spot:before { content: "\e674"; }
+.icon-class-star:before { content: "\e675"; }
+.icon-class-shares:before { content: "\e676"; }
+.icon-class-renwu:before{content: "\e611";}
+.icon-home-hangye:before { content: "\e677"; }
+.icon-home-shijian:before { content: "\e678"; }
+.icon-home-jiaoyu:before { content: "\e679"; }
+.icon-home-danwei:before { content: "\e67a"; }
+.icon-home-mingxing:before { content: "\e67b"; }
+.icon-home-city:before { content: "\e67c"; }
+.icon-home-people:before { content: "\e67d"; }
+.icon-home-pingpai:before { content: "\e67e"; }
+.icon-home-xinqu:before { content: "\e67f"; }
+.icon-home-yiyuan:before { content: "\e680"; }
+.icon-home-qiye:before { content: "\e681"; }
+.icon-home-gupiao:before { content: "\e682"; }
+.icon-tongji-1:before { content: "\e683"; }
+.icon-tongji-2:before { content: "\e684"; }
+.icon-tongji-3:before { content: "\e685"; }
+.icon-tongji-4:before { content: "\e686"; }
+.icon-tongji-5:before { content: "\e687"; }
+.icon-tongji-6:before { content: "\e688"; }
+.icon-tongji-7:before { content: "\e689"; }
+.icon-tongji-8:before { content: "\e68a"; }
+.icon-jingpin:before { content: "\e68b"; }
+.icon-yuqingribao:before { content: "\e68c"; }
+.icon-yuqingzhoubao:before { content: "\e68d"; }
+.icon-yuqingyuebao:before { content: "\e68e"; }
+.icon-yuqingnianbao:before { content: "\e68f"; }
+.icon-wyqlogo:before { content: "\e690"; }
+.icon-weibofenxi:before { content: "\e691"; }
+.icon-baogao:before { content: "\e692"; }
+.icon-zt1:before { content: "\e693"; }
+.icon-wenhao:before { content: "\e694"; }
+.icon-close:before { content: "\e695"; }
+.icon-heart-o:before { content: "\e696"; }
+.icon-heart:before { content: "\e697"; }
+.icon-pencil:before { content: "\e698"; }
+.icon-search:before { content: "\e699"; }
+.icon-star:before { content: "\e69a"; }
+.icon-bookmark:before { content: "\e69b"; }
+.icon-check:before { content: "\e69c"; }
+.icon-edit:before { content: "\e69d"; }
+.icon-envelope-o:before { content: "\e69e"; }
+.icon-film:before { content: "\e69f"; }
+.icon-repeat:before { content: "\e6a0"; }
+.icon-tag:before { content: "\e6a1"; }
+.icon-tags:before { content: "\e6a2"; }
+.icon-text-width:before { content: "\e63f"; }
+.icon-th:before { content: "\e640"; }
+.icon-trash-o:before { content: "\e641"; }
+.icon-trash:before { content: "\e641"; }
+.icon-user:before { content: "\e642"; }
+.icon-angle-down:before { content: "\e643"; }
+.icon-angle-left:before { content: "\e644"; }
+.icon-eye-slash:before { content: "\e645"; }
+.icon-eye:before { content: "\e646"; }
+.icon-shopping-cart:before { content: "\e647"; }
+.icon-angle-right:before { content: "\e648"; }
+.icon-angle-up:before { content: "\e649"; }
+.icon-apple:before { content: "\e64a"; }
+.icon-arrows:before { content: "\e64b"; }
+.icon-chain:before { content: "\e64c"; }
+.icon-envelope:before { content: "\e64d"; }
+.icon-favorite_border:before { content: "\e64e"; }
+.icon-group:before { content: "\e64f"; }
+.icon-magic:before { content: "\e650"; }
+.icon-map-marker:before { content: "\e651"; }
+.icon-mobile:before { content: "\e652"; }
+.icon-phone2:before { content: "\e653"; }
+.icon-plus-square:before { content: "\e654"; }
+.icon-cab:before { content: "\e655"; }
+.icon-dot-circle-o:before { content: "\e656"; }
+.icon-file-excel-o:before { content: "\e657"; }
+.icon-male:before { content: "\e658"; }
+.icon-tencent-weibo:before { content: "\e659"; }
+.icon-weibo:before { content: "\e65a"; }
+.icon-android:before { content: "\e65b"; }
+.icon-automobile:before { content: "\e65c"; }
+.icon-child:before { content: "\e65d"; }
+.icon-female:before { content: "\e65e"; }
+.icon-file-pdf-o:before { content: "\e65f"; }
+.icon-file-photo-o:before { content: "\e660"; }
+.icon-file-powerpoint-o:before { content: "\e661"; }
+.icon-file-word-o:before { content: "\e662"; }
+.icon-graduation-cap:before { content: "\e663"; }
+.icon-qq:before { content: "\e664"; }
+.icon-spoon:before { content: "\e665"; }
+.icon-windows:before { content: "\e666"; }
+.icon-add_shopping_cart:before { content: "\e667"; }
+.icon-adjust:before { content: "\e668"; }
+.icon-arrow_upward:before { content: "\e669"; }
+.icon-border_color:before { content: "\e66a"; }
+.control_point:before { content: "\e66b"; }
+.icon-share-alt:before { content: "\e61b"; }
+.icon-weixin:before { content: "\e61c"; }
+.icon-add:before { content: "\e61d"; }
+.icon-apps:before { content: "\e61e"; }
+.icon-arrow_drop_down:before { content: "\e61f"; }
+.icon-paper-plane-o:before { content: "\e620"; }
+.icon-paper-plane:before { content: "\e621"; }
+.icon-soccer-ball-o:before { content: "\e622"; }
+.icon-arrow_drop_up:before { content: "\e623"; }
+.icon-arrow_forward:before { content: "\e624"; }
+.icon-back:before { content: "\e625"; }
+.icon-arrow_downward:before { content: "\e626"; }
+.icon-help_outline:before { content: "\e627"; }
+.icon-help:before { content: "\e628"; }
+.icon-library_books:before { content: "\e629"; }
+.icon-live_tv:before { content: "\e62a"; }
+.icon-local_laundry_service:before { content: "\e62b"; }
+.icon-lock_outline:before { content: "\e62c"; }
+.icon-personal_video:before { content: "\e62d"; }
+.icon-phone:before { content: "\e62e"; }
+.icon-pool:before { content: "\e62f"; }
+.icon-child_friendly:before { content: "\e630"; }
+.icon-directions_run:before { content: "\e631"; }
+.icon-important_devices:before { content: "\e632"; }
+.icon-mail_outline:before { content: "\e633"; }
+.icon-notifications_active:before { content: "\e634"; }
+.icon-notifications_none:before { content: "\e635"; }
+.icon-remove2:before { content: "\e636"; }
+.icon-translate:before { content: "\e637"; }
+.icon-whatshot:before { content: "\e638"; }
+.icon-cart-arrow-down:before { content: "\e639"; }
+.icon-cart-plus:before { content: "\e63a"; }
+.icon-commenting:before { content: "\e63b"; }
+.icon-diamond:before { content: "\e63c"; }
+.icon-heartbeat:before { content: "\e63d"; }
+.icon-map-o:before { content: "\e63e"; }
+.icon-motorcycle:before { content: "\e609"; }
+.icon-ship:before { content: "\e60a"; }
+.icon-shopping-bag:before { content: "\e60b"; }
+.icon-shopping-basket:before { content: "\e60c"; }
+.icon-train:before { content: "\e60d"; }
+.icon-tv:before { content: "\e60e"; }
+.icon-whatsapp:before { content: "\e60f"; }
+.icon-area-chart:before { content: "\e610"; }
+.icon-black-tie:before { content: "\e611"; }
+.icon-bus:before { content: "\e612"; }
+.icon-commenting-o:before { content: "\e613"; }
+.icon-internet-explorer:before { content: "\e614"; }
+.icon-line-chart:before { content: "\e615"; }
+.icon-map:before { content: "\e616"; }
+.icon-pie-chart:before { content: "\e617"; }
+.icon-reddit-alien:before { content: "\e618"; }
+.icon-subway:before { content: "\e619"; }
+.icon-folder-download:before { content: "\e61a"; }
+.icon-download2:before { content: "\e600"; }
+.icon-earth:before { content: "\e601"; }
+.icon-notification:before { content: "\e602"; }
+.icon-phone:before { content: "\e603"; }
+.icon-warning:before { content: "\e604"; }
+.icon-mode_edit:before { content: "\e605"; }
+.icon-home-yule:before { content: "\e606"; }
+.icon-bookmark-o:before { content: "\e607"; }
+.icon-briefcase:before { content: "\e608"; }
+.icon-class-education:before { content: "\e6a3"; }
+.icon-remove:before { content: "\e6a4"; }
+.icon-arrow-up:before { content: "\e6a5"; }
+.icon-arrow-down:before { content: "\e6a6"; }
+.icon-qqkongjian:before { content: "\e613"; }
+.icon-move:before{content: "\e6a8";}
+.icon-ok:before{content: "\e69c";}
+.icon-shangxiajiantou:before{content: "\e6a9";}
+.icon-xiangxi:before{content: "\e6aa";}
+ 
+.icon-pengyouquan:before{content: "\e6ae";}
+.icon-moneybagfill:before{content: "\e60d";}
+.icon-jinggao:before{content: "\e609";}
+.icon-shuomingwenzi:before{content: "\e60a";}
+.icon-daoqiri:before{content: "\e612";}
+
+.icon-fenxiang:before{content: "\e618";}
+.icon-shouye:before{content: "\e619";}
+
+.icon-nan:before{content: "\e665";}
+.icon-nv:before{content: "\e86e";}
+
+.icon-shuaxin:before{content: "\e6ab";}
+.icon-xin:before{content: "\e6ac";}
+.icon-xiazai:before{content: "\e6b7";}
+.icon-clear:before{content: "\e6af";}
+.icon-lupai:before{content: "\e6ad";}
+
+ 

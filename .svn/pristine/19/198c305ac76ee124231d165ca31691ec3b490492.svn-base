@@ -1,0 +1,10 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+ "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.pengyue.ipo.dao.system.TbXtSourceImpl">
+		<!-- List<TbXtSource> queryFidIsNull(); -->
+		<select id="queryFidIsNull" resultType="com.pengyue.ipo.bean.TbXtSource">
+			select * from TB_XT_SOURCE where fid is null
+		</select>
+</mapper>

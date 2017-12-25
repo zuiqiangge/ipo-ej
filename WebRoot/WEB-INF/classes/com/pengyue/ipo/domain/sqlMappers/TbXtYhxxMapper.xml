@@ -1,0 +1,59 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+ "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.pengyue.ipo.dao.system.TbXtYhxxImpl">
+ 
+	<!-- Result Map-->
+	<resultMap id="BaseResultMap" type="com.pengyue.ipo.bean.TbXtYhxx">
+		<result column="id" property="id" />
+		<result column="loginId" property="loginId" />
+		<result column="password" property="password" />
+		<result column="userName" property="userName" />
+	</resultMap>
+
+	<!-- site_type table all fields -->
+	<sql id="Base_Column_List"> id,loginId,password,userName
+	</sql>
+	<!-- 查询登陆用户根据loginid -->
+	<select id="selectTbxtYhxxByLoginId" resultMap="BaseResultMap"
+		parameterType="java.lang.String">
+		select
+		id,loginid,password,username
+		from TB_XT_USER t1
+		where
+		loginid=#{loginid}  
+    </select>
+	<!-- 查询登陆用户根据loginid -->
+	<select id="testinsertclob" parameterType="map">
+		insert into TB_XT_FOURMCOLLECT values(
+		 
+		#{id},1,1,1,1,1,1,sysdate,1,1,#{context,jdbcType=CLOB} )
+    </select>
+    
+    <!-- List<TbXtYhxx> queryUser(TbXtYhxx user); -->
+ 	<select id="queryUser" resultType="com.pengyue.ipo.bean.TbXtYhxx" parameterType="com.pengyue.ipo.bean.TbXtYhxx">
+ 		select * from (select t.*,rownum as rowno from TB_XT_USER t) where rowno &gt; #{startRecord} and rowno &lt; #{endRecord} 
+ 	</select>
+ 	
+ 	<!-- int countUser(TbXtYhxx tbXtYhxx) -->
+	<select id="countUser" resultType="int" parameterType="com.pengyue.ipo.bean.TbXtYhxx">
+		select count(1) from TB_XT_USER 
+	</select>
+ 	
+ 	<!-- void editUser(TbXtYhxx user); -->
+ 	<update id="editUser" parameterType="com.pengyue.ipo.bean.TbXtYhxx">
+ 		update TB_XT_USER set password=#{password} where id=#{id}
+ 	</update>
+
+	 <!-- void saveUser(TbXtYhxx user); -->
+	<insert id="saveUser" parameterType="com.pengyue.ipo.bean.TbXtYhxx">
+		insert into TB_XT_USER (id,loginid,password,username)
+		values (#{id},#{loginId},#{password},#{userName})
+	</insert> 
+	
+	 <!-- void delUser(TbXtYhxx userName); -->
+	<delete id="delUser" parameterType="string">
+		delete from TB_XT_USER where username=#{userName} 
+	</delete>	
+</mapper>

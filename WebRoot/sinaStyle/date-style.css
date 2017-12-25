@@ -1,0 +1,54 @@
+/*
+ * Author:sandy
+ * Creat Date:2012-09-20
+*/
+/*base*/
+#ui-datepicker-div body,div,dl,dt,dd,ul,ol,li,h1,h2,h3,h4,h5,h6,pre,code,form,fieldset,legend,input,textarea,p,blockquote,table,th,td,iframe{margin:0;padding:0;}
+#ui-datepicker-div table{border-collapse:collapse;border-spacing:0;}
+#ui-datepicker-div img{border:0;vertical-align:top;}
+#ui-datepicker-div option{padding-left:5px;*padding:0;}
+#ui-datepicker-div li{list-style:none;}
+#ui-datepicker-div cite,code,caption,em,i{font-style:normal;font-weight:normal;}
+#ui-datepicker-div q:before,q:after{content:'';}
+#ui-datepicker-div a{text-decoration:none;}
+#ui-datepicker-div input[type="radio"],#ui-datepicker-div input[type="checkbox"]{margin-right:8px;}
+/*a:visited{color:#800080;}*/
+#ui-datepicker-div a:hover{text-decoration:underline;}
+#ui-datepicker-div a:active,a:focus{outline:none;}
+#ui-datepicker-div input,textarea,select{font-family:"microsoft yahei";font-size:inherit;font-weight:inherit;vertical-align:middle}
+#ui-datepicker-div input,textarea,select{*font-size:100%;}
+#ui-datepicker-div h2,h3{font-size:14px}
+#ui-datepicker-div textarea{resize:none;overflow-x:hidden;overflow-y:auto;width:586px;height:86px;padding:12px 0 0 12px;border:1px solid #dfdfdf;vertical-align:text-bottom;margin-right:22px;}
+#ui-datepicker-div .fl{float:left;display:inline;}
+#ui-datepicker-div .fr{float:right;display:inline;}
+#ui-datepicker-div .tl{text-align:left;}
+#ui-datepicker-div .tc{text-align:center;}
+#ui-datepicker-div .tr{text-align:right;}
+#ui-datepicker-div .imp{color:#0085da !important;}
+#ui-datepicker-div .grey{color:#909090;}
+#ui-datepicker-div .clear{clear:both;overflow:hidden;zoom:1}
+#ui-datepicker-div body{font:12px/21px "microsoft yahei";color:#404040;background-position:center 31px;background-repeat:no-repeat;}
+#ui-datepicker-div .wrap{width:1000px;overflow:hidden;margin:10px auto 74px;}
+
+#ui-datepicker-div .sub-nav{border-bottom:1px solid #e6e6e6;overflow: hidden;font-size:16px;font-family:"microsoft yahei";padding-top:6px;}
+#ui-datepicker-div .sub-nav li{float:left;display:inline;margin-right:30px;}
+#ui-datepicker-div .sub-nav a{color:#333;display:inline-block;height:30px;}
+
+#ui-datepicker-div .text-box{border:1px solid #ededed;height:35px;line-height:35px;margin-right:6px;padding-left: 11px;}
+
+#ui-datepicker-div .doc-set{color:#333;line-height:38px;}
+#ui-datepicker-div .doc-set li{overflow:hidden;zoom:1;border-bottom:1px dashed #e6e6e6;padding:10px 0;clear:both;}
+#ui-datepicker-div .doc-dt{float:left;width:150px;padding-right:15px;text-align:right;}
+#ui-datepicker-div .doc-dd{float:right;width:835px;}
+
+#ui-datepicker-div .ui-timepicker-div .ui-widget-header{margin-bottom:8px;}
+#ui-datepicker-div .ui-timepicker-div dl{text-align:left;}
+#ui-datepicker-div .ui-timepicker-div dl dt{float:left;clear:left;padding:0 0 0 5px;}
+#ui-datepicker-div .ui-timepicker-div dl dd{margin:0 10px 10px 45%;}
+#ui-datepicker-div .ui-timepicker-div td{font-size:90%;}
+#ui-datepicker-div .ui-tpicker-grid-label{background:none;border:none;margin:0;padding:0;}
+
+#ui-datepicker-div .ui-timepicker-rtl{ direction:rtl;}
+#ui-datepicker-div .ui-timepicker-rtl dl{text-align:right;padding:0 5px 0 0;}
+#ui-datepicker-div .ui-timepicker-rtl dl dt{ float:right;clear:right;}
+#ui-datepicker-div .ui-timepicker-rtl dl dd{margin:0 45% 10px 10px;}

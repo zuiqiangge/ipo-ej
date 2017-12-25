@@ -1,0 +1,25 @@
+.Wdate{
+	border:#999 1px solid;
+	height:20px;
+	background:#fff url(datePicker.gif) no-repeat right;
+}
+
+.WdateFmtErr{
+	font-weight:bold;
+	color:red;
+}
+.timebox{
+	 
+	-moz-border-radius:5px;
+	-khtml-border-radius:5px;
+	-webkit-border-radius:5px;
+	border-radius:5px;
+	width:150px; 
+	height:32px;
+	font-size:14px;
+	line-height:32px;
+	border:1px solid #dbdbdb; 
+ 	padding-left:7px;
+	font-size:12px;
+	background:#fff url(datePicker.gif) no-repeat right;
+}

@@ -1,0 +1,141 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+ "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.pengyue.ipo.dao.news.ReportRecordDaoImpl">
+	<resultMap id="BaseResultMap" type="com.pengyue.ipo.bean.ReportRecord">
+		<result column="id" property="id" />
+		<result column="newsid" property="newsId" />
+		<result column="title" property="title" />
+		<result column="fname" property="fname" />
+		<result column="newsdate" property="newsDate" />
+		<result column="zlm" property="zlm" />
+		<result column="clickedcounts" property="clickedCounts" />
+		<result column="pubnisihuser" property="pubnisihUser" />
+		<result column="reportid" property="reportId" />
+		<result column="addresscode" property="addressCode" />
+		<result column="context" property="context" />
+	</resultMap>
+	
+	<!-- 插入 -->
+	<insert id="InsertReportRecord" parameterType="com.pengyue.ipo.bean.ReportRecord">
+		insert into
+		TB_REPORT_RECORD (id, newsid, title, fname,
+		newsdate, zlm, clickedcounts, pubnisihuser, reportid, addresscode)
+		values
+		(sys_guid(),#{newsId,jdbcType=VARCHAR},#{title,jdbcType=CLOB}, #{fname,jdbcType=VARCHAR}, #{newsDate,jdbcType=VARCHAR}, #{zlm,jdbcType=VARCHAR},
+		#{clickedCounts,jdbcType=VARCHAR}, #{pubnisihUser,jdbcType=VARCHAR}, #{reportId,jdbcType=VARCHAR},#{addressCode,jdbcType=VARCHAR})
+	</insert>
+	
+	<select id="selectRecordCount" parameterType="map" resultType="java.lang.Integer">
+		select count(*)
+		from TB_REPORT_RECORD
+		where newsid = #{newsId} and reportid = #{reportId} and addresscode = #{addressCode}
+	</select>
+	<!-- 根据板块和时间段查询 -->
+	<select id="findByCodeAndTime" parameterType="map" resultMap="BaseResultMap">
+		select 
+			id,newsid,title,fname,newsdate,zlm,clickedcounts, pubnisihuser, reportid, addresscode,
+			(
+				select context
+				from tb_xt_newscollect
+				where id = t1.newsid
+				union all
+				select context
+				from tb_xt_fourmcollect
+				where id = t1.newsid
+			) as context
+		from tb_report_record t1
+		where 
+			t1.addresscode = #{code}
+			and t1.reportid = #{reportId}
+	</select>
+	
+	<!-- 香港社交网站舆情热点 -->
+	<select id="findXgsjwzyqrd" parameterType="map" resultMap="BaseResultMap">
+		select t1.title,t1.newsdate,t1.zlm,t1.clickedcounts
+		from TB_REPORT_RECORD t1,TB_XT_FOURMCOLLECT t2
+		where 
+			t1.newsid = t2.id
+			and t2.sourceid = #{sourceId}
+			and t1.reportid = #{reportId}
+	</select>
+	
+	<!-- 查询点击量最高的三个 -->
+	<select id="findSjzlmtcontext" parameterType="map" resultMap="BaseResultMap">
+		select * 
+		from
+		(
+			select t1.title,t2.context,t1.clickedcounts
+			from TB_REPORT_RECORD t1,TB_XT_FOURMCOLLECT t2
+			where
+				t1.newsid = t2.id
+				and t2.sourceid in (#{discussId},#{hkgoldenId},#{uwantsId})
+				and t1.reportid = #{reportId}
+			order by to_number(nvl(replace(clickedcounts,',',''),'0')) desc
+		) t
+		where rownum <![CDATA[<]]>= 3
+	</select>
+	
+	<!-- 新帖文 -->
+	<select id="findXtw" parameterType="map" resultType="java.lang.Integer">
+		select count(*) 
+		from TB_XT_FOURMCOLLECT
+		where
+			sourceid in (#{discussId},#{hkgoldenId},#{uwantsId})
+			and to_date(tytime,'yyyyMMddHH24miss') >= to_date(#{startTime},'yyyyMMddHH24miss') 
+			and to_date(tytime,'yyyyMMddHH24miss') <![CDATA[<]]>= to_date(#{endTime},'yyyyMMddHH24miss') 
+	</select>
+	
+	<!-- 点击量 -->
+	<select id="findDjl" parameterType="map" resultType="java.lang.Integer">
+		select sum(to_number(nvl(replace(clickedcounts,',',''),'0')))
+		from TB_XT_FOURMCOLLECT
+		where
+			sourceid in (#{discussId},#{hkgoldenId},#{uwantsId})
+			and to_date(tytime,'yyyyMMddHH24miss') >= to_date(#{startTime},'yyyyMMddHH24miss') 
+			and to_date(tytime,'yyyyMMddHH24miss') <![CDATA[<]]>= to_date(#{endTime},'yyyyMMddHH24miss') 
+	</select>
+	
+	<!-- 回帖量 -->
+	<select id="findHtl" parameterType="map" resultType="java.lang.Integer">
+		select count(*)
+		from TB_XT_FOURM_REPLAY
+		where
+			forumid in(
+				select id
+				from TB_XT_FOURMCOLLECT
+				where
+					sourceid in (#{discussId},#{hkgoldenId},#{uwantsId})
+					and to_date(tytime,'yyyyMMddHH24miss') >= to_date(#{startTime},'yyyyMMddHH24miss') 
+					and to_date(tytime,'yyyyMMddHH24miss') <![CDATA[<]]>= to_date(#{endTime},'yyyyMMddHH24miss') 
+			)
+	</select>
+	<!-- 查询图片 -->
+	<select id="findImage" parameterType="map" resultType="java.lang.String">
+		select context
+		from TB_REPORT_IMAGE
+		where
+			reportid = #{reportId}
+	</select>
+	<!-- 删除导出到报告的记录 -->
+	<delete id="deleteRecord" parameterType="list">
+		delete from TB_REPORT_RECORD 
+		where id in 
+			<foreach item="recordIdList" index="index" collection="list"  open="(" separator="," close=")">
+	           	#{recordIdList}
+	        </foreach>
+	</delete>
+	
+	<select id="findxgsjwzyqrd2" parameterType="map" resultMap="BaseResultMap">
+		select t1.id,t1.title,t1.newsdate,t1.zlm,t1.clickedcounts
+		from TB_REPORT_RECORD t1,TB_XT_FOURMCOLLECT t2
+		where 
+			t1.newsid = t2.id
+			and t1.reportid = #{reportId}
+			and t2.sourceid in 
+			<foreach item="sourceIds" index="index" collection="sourceIds"  open="(" separator="," close=")">
+				#{sourceIds}
+			</foreach>
+	</select>
+</mapper>

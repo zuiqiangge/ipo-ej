@@ -1,0 +1,39 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+ "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.pengyue.ipo.dao.system.TbXtTaskImpl">
+		<!-- void saveTask(TbXtTask tbXtTask); -->
+		<insert id="saveTask" parameterType="com.pengyue.ipo.bean.TbXtTask">
+			insert into TB_XT_TASK(ID,TASKNAME,QUERYWORD,QUERYDATEKS,QUERYDATEJS,TASKCREATETIME,FILTERWORD,TYPE,SOURCEID,ISFINISH,totalitem,totalclick)
+		values
+		 	(#{id},#{taskname},#{queryword},#{querydateks},#{querydatejs},
+		 	to_char(sysdate,'yyyy-mm-dd hh24:mi:ss'),#{filterword},#{type},#{sourceid},#{isfinish},#{totalitem},#{totalclick})
+		</insert>
+		
+		<!-- void queryTaskAll(TbXtTask tbXtTask) -->
+		<select id="queryTaskAll" resultType="com.pengyue.ipo.bean.TbXtTask" parameterType="com.pengyue.ipo.bean.TbXtTask">
+			select ID,TASKNAME,QUERYWORD,QUERYDATEKS,QUERYDATEJS,TASKCREATETIME,FILTERWORD,TYPE,SOURCEID,ISFINISH
+ 			from (select t.*,rownum as rowno from TB_XT_TASK t where type=#{type} order by taskcreatetime desc) where rowno &gt; #{startRecord} and rowno &lt; #{endRecord}
+		</select>
+		
+		<!-- int countResult(TbXtTask tbXtTask) -->
+		<select id="countResult" resultType="int" parameterType="com.pengyue.ipo.bean.TbXtTask">
+			select count(1) from TB_XT_TASK where type=#{type}
+		</select>
+		
+		<!-- TbXtTask getTaskById(String id); -->
+		<select id="getTaskById" resultType="com.pengyue.ipo.bean.TbXtTask" parameterType="java.lang.String">
+			select ID,TASKNAME,QUERYWORD,QUERYDATEKS,QUERYDATEJS,TASKCREATETIME,FILTERWORD,TYPE,SOURCEID,ISFINISH,TOTALITEM,TOTALCLICK from TB_XT_TASK where id=#{id}
+		</select>
+		
+		<!-- List<TbXtTask> jingdian(String type); -->
+		<select id="jingdian" parameterType="java.lang.String" resultType="com.pengyue.ipo.bean.TbXtTask">
+			select * from (select ID,TASKNAME,QUERYWORD,QUERYDATEKS,QUERYDATEJS,TASKCREATETIME,FILTERWORD,TYPE,SOURCEID,ISFINISH,TOTALITEM,TOTALCLICK from TB_XT_TASK where type = #{type} order by to_number(totalclick) desc) where rownum &lt; 4
+		</select>
+		
+		<!-- void deleteTaskById(String id); -->
+		<delete id="deleteTaskById" parameterType="java.lang.String">
+			delete from TB_XT_TASK t where t.id=#{id}
+		</delete>
+</mapper>

@@ -1,0 +1,115 @@
+a, address, b, big, blockquote, body, center, cite, code,
+dd, del, div, dl, dt, em, fieldset, font, form, h1, h2,
+h3, h4, h5, h6, html, i, iframe, img, ins, label, legend,
+li, ol, p, pre, small, span, strong, u, ul, var{
+    padding: 0;
+    margin: 0;
+}
+body{
+    background-color: #EEEEEE;
+    background-size: cover;
+}
+#main{
+    /*text-align: center;*/
+}
+#main #main_header{
+    display: inline;
+    height: 55px;
+    /*background-color: white;*/
+}
+.header{
+    text-align: right;
+}
+.header ul{
+    display: inline-block;
+
+
+}
+.header ul li{
+    display: inline-block;
+    margin-right: 25px;
+}
+.header ul li p{
+    height: 50px;
+    line-height: 50px;
+    font-size: 22px;
+    color: #2b669a;
+}
+.header ul li p:hover{
+    /*background-color: white;*/
+    font-size: 32px;
+    color: #d9534f;
+}
+/*.pic .t1{ margin-left: 200px}*/
+/*.header img{*/
+    /*margin-left: 25px;*/
+/*}*/
+#main .login_logo{
+    text-align: center;
+    margin-bottom: 15px;
+}
+.login_logo span{
+    height: 100%;
+    display: inline-block;
+    vertical-align: middle;
+}
+#main .login_logo img{
+    width: 512px;
+    vertical-align: middle;
+}
+#main .col-md-3{
+    margin-top: 100px;
+}
+#main .col-md-3 p{
+    padding: 50px;
+    font-size: 22px;
+}
+#main .col-md-6{
+    padding: 30px;
+    border-radius: 10px;
+}
+.login_form{ padding-top: 30px; }
+
+.form-space{text-align: center; padding-top: 30px;margin-bottom: 15px; border-top: 1px #FFF dotted;}
+
+.bottom {padding-top:15px; text-align: center; font-size: 15px; color: #3c3c3c;}
+
+.form-control {display: inline-block; *display: inline; zoom: 1; width: auto; font-size: 18px;}
+
+.form-control.x319 {width: 395px;}
+
+.test{font-size: 20px}
+
+.form-group{margin-bottom: 30px;text-align: center; color:black;}
+
+.form-group1{margin-bottom: 20px;}
+
+.login_box .m {cursor: pointer;}
+
+
+/*自适应布局*/
+
+@media screen and (max-width: 810px){
+    #main .login_logo img{
+        width: 512px;
+        vertical-align: middle;
+    }
+    .header ul li p{
+        height: 50px;
+        line-height: 50px;
+        font-size: 18px;
+        color: #2b669a;
+    }
+}
+@media screen  and (max-width: 550px){
+    #main .login_logo img{
+        width: 400px;
+        vertical-align: middle;
+    }
+    .header ul li p{
+        height: 50px;
+        line-height: 50px;
+        font-size: 12px;
+        color: #2b669a;
+    }
+}

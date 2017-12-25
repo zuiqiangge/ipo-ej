@@ -1,0 +1,66 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+ "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.pengyue.ipo.dao.system.TbXtTaskResImpl">
+		<!-- void saveTaskRes(TbXtTaskResult tbXtTaskResult); -->
+		<insert id="saveTaskRes" parameterType="com.pengyue.ipo.bean.TbXtTaskResult">
+			insert into tb_xt_task_result (id,taskid,resulttitle,resultdescribe,resultpubtime,resulturl,resultsource,etlgxsj,resultcounts,pubnisihuser,clickedCounts)
+		values
+			(#{id},#{taskId},#{resulttitle},#{resultdescribe},#{resultpubtime},#{resulturl},#{resultsource},to_date(#{etlgxsj},'yyyy-mm-dd hh24:mi:ss'),#{resultcounts},#{pubnisihuser},#{clickedCounts})
+		</insert>
+		
+		<!-- String fastigiumDate(String taskId); -->
+		<select id="fastigiumDate" resultType="string" parameterType="string">
+			select fastigiumDate from (select to_char(to_date(resultpubtime,'yyyymmddhh24miss'),'yyyymmdd') as fastigiumDate,count(1) as fastigiumCount from TB_XT_TASK_RESULT t where t.taskid=#{taskId}  group by to_char(to_date(resultpubtime,'yyyymmddhh24miss'),'yyyymmdd') order by count(1) desc) where rownum &lt; 2
+		</select>
+		
+		<!-- String fastigiumCount(String taskId); -->
+		<select id="fastigiumCount" resultType="string">
+			select fastigiumCount from (select to_char(to_date(resultpubtime,'yyyymmddhh24miss'),'yyyymmdd') as fastigiumDate,count(1) as fastigiumCount from TB_XT_TASK_RESULT t where t.taskid=#{taskId} group by to_char(to_date(resultpubtime,'yyyymmddhh24miss'),'yyyymmdd') order by count(1) desc) where rownum &lt; 2
+		</select>
+		
+		<!-- TbXtTaskResult firstTaskResByTask(String taskid); -->
+		<select id="firstTaskResByTask" resultType="com.pengyue.ipo.bean.TbXtTaskResult" parameterType="string">
+			select * from (select * from TB_XT_TASK_RESULT t where t.taskid=#{taskid} order by t.resultpubtime asc) where rownum &lt; 2
+		</select>
+		
+		<!-- List<TbXtTaskResult> queryTaskResByTask(String taskid); -->
+		<select id="queryTaskResByTask" resultType="com.pengyue.ipo.bean.TbXtTaskResult" parameterType="string">
+			select * from TB_XT_TASK_RESULT t where t.taskid=#{taskid} order by t.resultpubtime asc
+		</select>
+		
+		<!-- List<Pie> taskSourceSitesPie(String taskid); -->
+		<select id="taskSourceSitesPie" resultType="com.pengyue.ipo.tree.Pie" parameterType="string">
+			select t.resultsource as name,count(t.resultsource) as value from TB_XT_TASK_RESULT t where t.taskid=#{taskid} group by t.resultsource order by count(t.resultsource) desc
+		</select>
+		
+		<!-- List<TbXtTaskResult> taskResListByClickTop10(String taskid); -->
+		<select id="taskResListByClickTop10" resultType="com.pengyue.ipo.bean.TbXtTaskResult" parameterType="string">
+			select * from (select * from TB_XT_TASK_RESULT t where t.taskid=#{taskid} order by to_number(t.clickedcounts) desc) where rownum &lt; 11
+		</select>
+		
+		<!-- List<TbXtSource> queryForumByTask(String taskid) -->
+		<select id="queryForumByTask" parameterType="string" resultType="string">
+			select s.name from TB_XT_TASK_RESULT t left join Tb_Xt_Source s on t.resultsource=s.name
+			 where t.taskid=#{taskid} and s.sourcetype='论坛' group by s.name
+		</select>
+		
+		<!-- List<ForumUser> queryForumUserTOP10(String taskid,String forumName); -->
+		<select id="queryForumUserTOP10" parameterType="map" resultType="com.pengyue.ipo.bean.ForumUser">
+			select * from (select count(t.pubnisihuser) as count,t.pubnisihuser as userName,t.resultsource as forum from TB_XT_TASK_RESULT t where  t.taskid=#{taskid} and  t.pubnisihuser != 'null' group by t.pubnisihuser,t.resultsource  order by  count(t.pubnisihuser)  desc) where rownum &lt; 11
+			<if test="forumName  != '' and forumName != null"> and forum=#{forumName}</if>
+		</select>
+		
+		<!-- List<TbXtTaskResult> queryNewsTop10(String taskid); -->
+		<select id="queryNewsTop10" parameterType="string" resultType="com.pengyue.ipo.bean.TbXtTaskResult">
+			select * from (select t.* from TB_XT_TASK_RESULT t left join Tb_Xt_Source s on t.resultsource=s.name
+			 where t.taskid=#{taskid} and s.sourcetype='新闻媒体' order by to_number(t.clickedcounts) desc) where rownum &lt; 11
+		</select>
+		
+		<!-- List<TbXtTaskResult> queryForumTop10(String taskid); -->
+		<select id="queryForumTop10" parameterType="string" resultType="com.pengyue.ipo.bean.TbXtTaskResult">
+			select * from (select t.* from TB_XT_TASK_RESULT t left join Tb_Xt_Source s on t.resultsource=s.name
+			 where t.taskid=#{taskid} and s.sourcetype='论坛' order by to_number(t.clickedcounts) desc) where rownum &lt; 11
+		</select>
+</mapper>

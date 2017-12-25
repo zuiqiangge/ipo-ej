@@ -1,0 +1,232 @@
+.preview-img{
+	margin-top: 10px;
+}
+
+feed-img li img {
+    cursor: url("../../images/swa/big.cur"), pointer;
+    height: 80px;
+    width: 80px;
+}
+
+.multi-attachment {
+    margin: -5px 0 0 -5px;
+    max-width: 300px;
+}
+
+.multi-attachment img {
+    height: 80px;
+    width: 80px;
+}
+.feed-img img {
+    vertical-align: top;
+}
+
+.show-img {
+    background-color: #f6f6f6;
+    border: 1px solid #dcdcdc;
+    border-radius: 3px;
+    padding: 15px 20px 13px;
+}
+
+.zoom-move {
+    cursor: url("../../images/swa/big.cur"), pointer;
+}
+
+.thumb-slider-wrap {
+    margin: 10px 0 0;
+    position: relative;
+    width: 440px;
+}
+
+.thumb-slider-wrap .visible-box {
+    height: 55px;
+    margin-left: 18px;
+    overflow: hidden;
+    position: relative;
+    width: 405px;
+}
+
+.thumb-slider-wrap .slider-next {
+    border-radius: 0 4px 4px 0;
+    right: 0;
+}
+.thumb-slider-wrap .slider-prev {
+    border-radius: 4px 0 0 4px;
+    left: 0;
+}
+.thumb-slider-wrap .slider-dir {
+    background: none repeat scroll 0 0 #e3e3e3;
+    color: #aeaeae;
+    font-family: SimSun;
+    font-weight: 600;
+    height: 50px;
+    line-height: 50px;
+    position: absolute;
+    text-align: center;
+    text-decoration: none;
+    top: 3px;
+    width: 12px;
+}
+a {
+    color: #1d77b4;
+    cursor: pointer;
+    text-decoration: none;
+}
+
+li{
+	list-style-type: none;
+}
+
+.feed-img:after {
+    clear: both;
+    content: " ";
+    display: block;
+}
+
+.feed-img li {
+    float: left;
+    position: relative;
+}
+
+.multi-attachment li {
+    margin: 5px 0 0 5px;
+}
+
+
+.forward .show-img {
+    margin-top: -12px;
+}
+.forward .show-img {
+    border: 0 none;
+    padding: 12px 0 0;
+}
+.show-img {
+    background-color: #f6f6f6;
+    border: 1px solid #dcdcdc;
+    border-radius: 3px;
+    padding: 15px 20px 13px;
+}
+
+.forward {
+    font-size: 12px;
+    line-height: 20px;
+}
+
+.thumb-slider-wrap .visible-box {
+    height: 55px;
+    margin-left: 18px;
+    overflow: hidden;
+    position: relative;
+    width: 405px;
+}
+
+.thumb-slider-wrap ul {
+    left: 0;
+    position: absolute;
+}
+
+.thumb-slider-wrap li {
+    float: left;
+    margin: 0 4px 0 0;
+}
+
+.thumb-slider-wrap img {
+    border: 1px solid transparent;
+    height: 50px;
+    opacity: 0.5;
+    padding: 1px;
+    width: 50px;
+}
+
+.ctrl-bar {
+    font-size: 12px;
+    padding-bottom: 10px;
+    padding-left: 3px;
+}
+
+.ctrl-bar .icon-piup {
+    background-position: 0 2px;
+}
+.ctrl-bar a {
+    background-position: 0 -27px;
+    background-repeat: no-repeat;
+    border-right: 1px solid #d0d0d0;
+    margin-right: 9px;
+    padding: 0 12px;
+}
+
+.ctrl-bar .icon-trunleft {
+    background-position: 0 -54px;
+}
+
+.ctrl-bar a:last-child {
+    border-right: 0 none;
+}
+.ctrl-bar .icon-trunright {
+    background-position: 0 -83px;
+}
+
+.narrow-move {
+    cursor: url("../../images/swa/small.cur"), pointer;
+}
+.narrow-move {
+    cursor: url("../../images/swa/small.cur"), pointer;
+    max-width: 440px;
+}
+
+.image-wrap .pic-nav {
+    background: none repeat scroll 0 0 #fff;
+    bottom: 0;
+    margin: 0 !important;
+    opacity: 0;
+    padding: 0 !important;
+    position: absolute;
+    top: 0;
+    width: 120px;
+}
+
+.multi-image-box .image-wrap {
+    text-align: center;
+}
+.image-wrap {
+    position: relative;
+    width: 440px;
+}
+
+.image-wrap .loading-img {
+    display: none;
+}
+.preview-img .loading-img {
+    height: 16px;
+    left: 50%;
+    margin: -8px 0 0 -8px;
+    position: absolute;
+    top: 50%;
+    width: 16px;
+}
+
+.multi-image-box .pic-nav {
+    display: block;
+}
+.image-wrap .pic-nav-next {
+    cursor: url("http://img.t.sinajs.cn/t5/style/images/common/pic_next.cur?id=1366091579494"), auto;
+    right: 0;
+}
+
+
+.image-wrap .pic-nav-prev {
+    cursor: url("http://img.t.sinajs.cn/t5/style/images/common/pic_prev.cur?id=1366091579494"), auto;
+    left: -10px;
+}
+
+
+.thumb-slider-wrap img:hover, .thumb-slider-wrap .active {
+    border-color: #ffa306;
+    opacity: 1;
+}
+
+@media only screen and (max-width:600px ) {
+	.image-wrap {width: 100%;}
+	.narrow-move { max-width: 100%;}
+	.feed-img.thumb-zoom img{width: 100%;}
+}

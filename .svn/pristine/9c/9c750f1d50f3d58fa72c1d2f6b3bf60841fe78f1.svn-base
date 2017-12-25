@@ -1,0 +1,9 @@
+.u-flyer{display: block;width: 50px;height: 50px;border-radius: 0px;position: fixed;z-index: 199999; background-image:url(../images/r_icon/collection0.png)  }
+.u-flyer-cart{display: block;width: 50px;height: 50px;border-radius: 0px;position: fixed;z-index: 199999; background-image:url(../images/r_icon/icon11.png)  }
+.m-sidebar{position: fixed;top: 0px;right: 0;z-index: 1;width: 35px;height: 100%;font-size: 12px;color: #fff;} 
+.cart{color: #fff;text-align:center;line-height: 20px;padding: 100px 20px 0 0px;} 
+.cart span{display:block;width:20px;margin:0 auto;} 
+.cart i{width:35px;height:35px;display:block; text-indent:-9999px;} 
+#tipSucai{position:fixed; top:310px; right:35px; z-index:10000; width:1px; height:42px; line-height:42px; font-size:14px; text-align:center; color:#fff; background:#ff6c00; display:none;}
+#tipCollect{position:fixed;bottom:340px; /**top:360px;*/ right:35px; z-index:10000; width:1px; height:42px; line-height:42px; font-size:14px; text-align:center; color:#fff; background:#ff6c00; display:none;}
+#tipCart{position:fixed; top:410px; right:35px; z-index:10000; width:1px; height:42px; line-height:42px; font-size:14px; text-align:center; color:#fff; background:#ff6c00; display:none;} 

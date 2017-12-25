@@ -1,0 +1,73 @@
+#usingWebService=true
+#usingRestfulService=true
+   
+#restfull_api_base_home=
+
+url.goto_user_home=http://www.uwants.com/memcp.php?action=profile&typeid=1
+url.do_login=http://www.uwants.com/logging.php?action=login&loginsubmit=true
+url.user_profile_url_1=http://www.uwants.com/memcp.php?action=profile&typeid=1
+url.user_profile_url_2=http://www.uwants.com/memcp.php?action=profile&typeid=2
+url.user_profile_url_3=http://www.uwants.com/memcp.php?action=profile&typeid=3
+url.user_profile_url_4=http://www.uwants.com/memcp.php
+url.post.replay=http://www.uwants.com/post.php?action=reply&tid=%1$s&extra=page%%3D1
+url.post.do.replay=http://www.uwants.com/post.php?action=reply&fid=2011&tid=%1$s&extra=&replysubmit=yes&localid[]=1
+url.post.subnew=http://www.uwants.com/post.php?action=newthread&fid=%1$s&extra=page%%3D1
+url.post.do.subnew=http://www.uwants.com/post.php?action=newthread&fid=%1$s&extra=page%%3D1&topicsubmit=yes&localid[]=1
+
+num.loginer.user_profile_url_count=4
+num.post.looked.wait.time=15
+
+select.loginer.loginform.names.username=username
+select.loginer.loginform.names.password=password
+select.loginer.loginform=form[name=loginform]
+select.loginer.return.logininfo=.mainbox ins.logininfo
+select.do.return.msg=#mainbody .box.message p
+select.loginer.user_profile_form=form[name=reg]
+select.loginer.user_profile_form_ele_tagnames=input,select
+select.loginer.user_profile_display_eles=#memberinfo .memberinfo_forum ul li
+select.post.replay.form.eles=#postform input[type=hidden],#postform input[type=text],#postform input[type=file]
+select.post.replay.context.name=message
+
+select.post.subnew.context.name=message
+select.post.subnew.subject.name=subject
+
+
+select.post.home.list.itmes=.folder a
+
+regx.loginer.user_profile_display_eles=[:：]
+regx.post.urlparam.postid=[\\?&]tid=[^&]+
+regx.post.urlparam.postnewid=[\\?&]fid=[^&]+
+
+msg.start.logined=歡迎您回來
+msg.start.replayed=非常感謝，您的回覆已經發佈，現在將
+msg.start.postnew=非常感謝，您的主題已經發佈
+msg.start.no.access=對不起，您的 IP 地址不在被允許的範圍內，或您的賬號被禁用，無法訪問本論壇。
+
+maping.cn.com.pengyue.bbstool.UserInfo.UID=uid
+maping.cn.com.pengyue.bbstool.UserInfo.用戶組=userGroup
+maping.cn.com.pengyue.bbstool.UserInfo.註冊日期=regDate
+maping.cn.com.pengyue.bbstool.UserInfo.註冊IP=regIp
+maping.cn.com.pengyue.bbstool.UserInfo.上次訪問IP=lastVisitIp
+maping.cn.com.pengyue.bbstool.UserInfo.上次訪問=lastLoginTime
+maping.cn.com.pengyue.bbstool.UserInfo.最後發表=lastPostTime
+maping.cn.com.pengyue.bbstool.UserInfo.積分=source
+maping.cn.com.pengyue.bbstool.UserInfo.帖子=postCount
+maping.cn.com.pengyue.bbstool.UserInfo.精華=goodPostCount
+
+maping.cn.com.pengyue.bbstool.UserInfo.emailnew=email
+
+maping.cn.com.pengyue.bbstool.UserInfo.gendernew=sex
+maping.cn.com.pengyue.bbstool.UserInfo.bdaynew=birthDate
+maping.cn.com.pengyue.bbstool.UserInfo.locationnew=from
+maping.cn.com.pengyue.bbstool.UserInfo.sitenew=personSite
+maping.cn.com.pengyue.bbstool.UserInfo.qqnew=qq
+maping.cn.com.pengyue.bbstool.UserInfo.icqnew=icq
+maping.cn.com.pengyue.bbstool.UserInfo.yahoonew=yahoo
+maping.cn.com.pengyue.bbstool.UserInfo.msnnew=msn
+maping.cn.com.pengyue.bbstool.UserInfo.taobaonew=aliyWangWang
+maping.cn.com.pengyue.bbstool.UserInfo.alipaynew=aliyAccount
+
+maping.cn.com.pengyue.bbstool.UserInfo.field_1new=introducer
+
+
+

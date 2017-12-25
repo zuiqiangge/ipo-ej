@@ -1,0 +1,6 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<plan>
+	<url>www.baidu.com</url>
+	<timer>15,30,45 * * * * ?</timer>
+	<rule>dsfsdfsd</rule>
+</plan>

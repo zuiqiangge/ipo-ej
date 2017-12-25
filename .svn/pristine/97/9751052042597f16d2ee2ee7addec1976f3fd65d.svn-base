@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+ "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.pengyue.ipo.dao.collectionclass.CollectionClassDaoImpl">
+	<resultMap id="BaseResultMap" type="com.pengyue.ipo.bean.CollectionClass">
+		<result column="id" property="id" />
+		<result column="classname" property="className" />
+		<result column="state" property="state" />
+		<result column="sourceid" property="sourceid" />
+	</resultMap>
+	
+	<!-- 查询所有可用的采集类 -->
+	<select id="FindAllEnable" resultMap="BaseResultMap">
+		select id,classname,state,sourceid 
+		from tb_xt_collection_class 
+		where state=1
+	</select>
+
+</mapper>

@@ -1,0 +1,282 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+ "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.pengyue.ipo.dao.news.ReportDaoImpl">
+	<resultMap id="BaseResultMap" type="com.pengyue.ipo.bean.Report">
+		<result column="id" property="id" />
+		<result column="name" property="name" />
+		<result column="createtime" property="createTime" />
+		<result column="userid" property="userId" />
+		<result column="modelid" property="modelId" />
+		<result column="issave" property="issave" />
+		<result column="reporturl" property="reportUrl" />
+		<result column="querytimeks" property="querytimeks" />
+		<result column="querytimejs" property="querytimejs" />
+		<result column="modelname" property="modelName" />
+	</resultMap>
+
+	<resultMap id="ReportChartsBeanMap" type="com.pengyue.ipo.bean.ReportChartsBean">
+		<result column="title" property="title" />
+		<result column="rescounts" property="rescounts" />
+		<result column="lx" property="lx" />
+	</resultMap>
+
+	<resultMap id="newsZLmBeanMap" type="com.pengyue.ipo.bean.NewsZlm">
+		<result column="zm" property="zm" />
+		<result column="fm" property="fm" />
+		<result column="zl" property="zl" />
+	</resultMap>
+	<resultMap id="tbfmcBeanMap" type="com.pengyue.ipo.bean.Tbfmc">
+		<result column="define" property="define" />
+		<result column="lx" property="lx" />
+		<result column="define_ft" property="define_ft" />
+	</resultMap>
+	
+	<!-- test -->
+	<select id="getwords" resultMap="tbfmcBeanMap">
+		select * from TB_XT_FMC
+	</select>
+	<update id="updateFmc" parameterType="map">
+		update TB_XT_FMC
+		set
+		define_ft=#{define_ft } 
+		where define = #{define }
+	</update>
+	<!-- 查询所有 -->
+	<select id="FindAllReport" resultMap="BaseResultMap">
+		select
+		id,name,createtime,userid,modelid,issave,reporturl,querytimeks,querytimejs
+		from tb_xt_report
+	</select>
+
+	<!-- 按条件查询 -->
+	<select id="FindReportByMap" parameterType="map" resultMap="BaseResultMap">
+		select
+		id,name,createtime,userid,modelid,issave,reporturl,querytimeks,querytimejs
+		from tb_xt_report
+		where userid = #{userId} and issave = 0
+	</select>
+
+	<!-- 查询数量 -->
+	<select id="FindCount" parameterType="map" resultType="java.lang.Integer">
+		select count(*)
+		from tb_xt_report
+		where 1=1
+		<if test="reportName != null">
+			and name = #{reportName} 
+		</if>
+		<if test="startTime != null">
+			and createtime >= to_date(#{startTime},'yyyy/MM/dd
+			HH24:mi:ss') 
+		</if>
+		<if test="endTime != null">
+			and createtime <![CDATA[<]]>=
+			to_date(#{endTime},'yyyy/MM/dd HH24:mi:ss')
+		</if>
+	</select>
+	<!-- 查询分页 -->
+	<select id="FindPage" parameterType="map" resultMap="BaseResultMap">
+		select *
+		from
+			(select t3.*, ROWNUM as RM
+			from
+				(select t.*,t2.name as modelname 
+				from
+				tb_xt_report t,tb_xt_model t2
+				where t.modelid = t2.id
+				<if test="reportName != null">
+					and t.name = #{reportName} 
+						</if>
+				<if test="startTime != null">
+					and t.createtime >= to_date(#{startTime},'yyyy/MM/dd
+					HH24:mi:ss') 
+						</if>
+				<if test="endTime != null">
+					and t.createtime <![CDATA[<]]>=
+					to_date(#{endTime},'yyyy/MM/dd HH24:mi:ss')
+				</if>
+				order by t.createtime desc
+				) t3
+				where ROWNUM <![CDATA[<]]>= #{end}
+			)
+		where RM >= #{start}
+	</select>
+
+	<!-- 删除 -->
+	<delete id="DeleteReport" parameterType="java.lang.String">
+		delete from tb_xt_report
+		where id = #{reportId}
+	</delete>
+	<!-- 获取所有时间间隔 -->
+	<select id="getDateTempBySjd" parameterType="map" resultType="java.lang.String">
+		SELECT TO_CHAR(TO_DATE(#{reportstartTime}, 'yyyy-MM-DD') + ROWNUM - 1,
+		'YYYY-MM-DD')
+		FROM DUAL
+		CONNECT BY (TO_DATE(#{reportendTime},
+		'YYYY-MM-DD')+1 -
+		TO_DATE(#{reportstartTime}, 'YYYY-MM-DD'))>=ROWNUM
+	</select>
+
+	<!-- 获取每天各类立场的新闻量 -->
+	<select id="getRReportChartsByZlm" parameterType="map"
+		resultMap="ReportChartsBeanMap">
+		select #{zlm} as lx,t1.title,
+		case
+		when t2.rescounts is null
+		then
+		0
+		else
+		rescounts
+		end as
+		rescounts
+		from (select
+		to_char(to_date(t.pubnisihtime_new, 'yyyymmddhh24miss'),
+		'yyyy-mm-dd')
+		as title,
+		count(id) as rescounts
+		from (select t1.pubnisihtime_new, id
+		from TB_XT_NEWSCOLLECT t1 where
+		pubnisihtime_new>=to_char(to_date(#{reportstartTime},'yyyy-mm-dd'),'yyyymmddhh24miss')
+		and
+		to_char(to_date(#{reportendTime},'yyyy-mm-dd'),'yyyymmddhh24miss')>=pubnisihtime_new
+		and zlm=#{zlm}
+		union all
+		select t2.tytime as pubnisihtime_new, t2.id
+		from tb_xt_fourmcollect t2
+		where
+		tytime>=to_char(to_date(#{reportstartTime},'yyyy-mm-dd'),'yyyymmddhh24miss')
+		and
+		to_char(to_date(#{reportendTime},'yyyy-mm-dd'),'yyyymmddhh24miss')>=tytime
+		and zlm=#{zlm}
+		) t
+		group by to_char(to_date(t.pubnisihtime_new,
+		'yyyymmddhh24miss'),
+		'yyyy-mm-dd')) t2
+		,
+		(SELECT
+		TO_CHAR(TO_DATE(#{reportstartTime}, 'yyyy-MM-DD') + ROWNUM - 1,
+		'YYYY-MM-DD') as title
+		FROM DUAL
+		CONNECT BY (TO_DATE(#{reportendTime},
+		'YYYY-MM-DD') + 1 -
+		TO_DATE(#{reportstartTime}, 'YYYY-MM-DD')) >=
+		ROWNUM) t1
+		where t1.title = t2.title(+)
+		order by t1.title asc
+	</select>
+	<insert id="saveReport" parameterType="map">
+		insert into TB_XT_REPORT
+		values(#{id},#{reportname},sysdate,#{userid},#{modelid},#{issave},#{reporturl},to_char(to_date(#{reportstartTime},'yyyy-mm-dd'),'yyyymmdd')||'000000',to_char(to_date(#{reportendTime},'yyyy-mm-dd'),'yyyymmdd')||'235959'
+		)
+	</insert>
+	<insert id="saveReportImage" parameterType="map">
+		insert into
+		TB_REPORT_IMAGE(id,reportid,context)
+		values(sys_guid(),#{id},#{reportImg} )
+	</insert>
+
+	<select id="getZlmByContext" parameterType="map" resultMap="newsZLmBeanMap">
+		 select (select sum(count)
+          from (select case
+                         when LENGTH(REGEXP_REPLACE(REPLACE(#{context},
+                                                            define,
+                                                            '@'),
+                                                    '[^@]+',
+                                                    '')) is null
+                                      and 
+                                      LENGTH(REGEXP_REPLACE(REPLACE(#{context},
+                                                            define_ft,
+                                                            '@'),
+                                                    '[^@]+',
+                                                    '')) is null              
+                                                     then
+                          0
+                         else
+                          LENGTH(REGEXP_REPLACE(REPLACE(#{context},
+                                                        define,
+                                                        '@'),
+                                                '[^@]+',
+                                                ''))+
+                                                LENGTH(REGEXP_REPLACE(REPLACE(#{context},
+                                                        define_ft,
+                                                        '@'),
+                                                '[^@]+',
+                                                ''))
+                       end as count
+                  FROM TB_XT_FMC
+                 where lx in (1, 4, 12))) as zm,
+       (select sum(count)
+          from (select case
+                         when LENGTH(REGEXP_REPLACE(REPLACE(#{context},
+                                                            define,
+                                                            '@'),
+                                                    '[^@]+',
+                                                    '')) is null and LENGTH(REGEXP_REPLACE(REPLACE(#{context},
+                                                        define_ft,
+                                                        '@'),
+                                                '[^@]+',
+                                                '')) is null then
+                          0
+                         else
+                          LENGTH(REGEXP_REPLACE(REPLACE(#{context},
+                                                        define,
+                                                        '@'),
+                                                '[^@]+',
+                                                ''))+LENGTH(REGEXP_REPLACE(REPLACE(#{context},
+                                                        define_ft,
+                                                        '@'),
+                                                '[^@]+',
+                                                ''))
+                       end as count
+                  FROM TB_XT_FMC
+                 where lx in (3, 10, 11))) as fm,
+       (select sum(count)
+          from (select case
+                         when LENGTH(REGEXP_REPLACE(REPLACE(#{context},
+                                                            define,
+                                                            '@'),
+                                                    '[^@]+',
+                                                    '')) is null and LENGTH(REGEXP_REPLACE(REPLACE(#{context},
+                                                        define_ft,
+                                                        '@'),
+                                                '[^@]+',
+                                                '')) is null then
+                          0
+                         else
+                          LENGTH(REGEXP_REPLACE(REPLACE(#{context},
+                                                        define,
+                                                        '@'),
+                                                '[^@]+',
+                                                ''))+LENGTH(REGEXP_REPLACE(REPLACE(#{context},
+                                                        define_ft,
+                                                        '@'),
+                                                '[^@]+',
+                                                ''))
+                       end as count
+                  FROM TB_XT_FMC
+                 where lx not in (3, 10, 11, 1, 4, 12))) as zl
+  from dual
+		 
+
+		 
+	</select>
+
+	<!-- 按id查询 -->
+	<select id="findReportById" parameterType="java.lang.String"
+		resultMap="BaseResultMap">
+		select
+		id,name,createtime,userid,modelid,issave,reporturl,querytimeks,querytimejs
+		from tb_xt_report
+		where id = #{reportId}
+	</select>
+	<!-- 修改 -->
+	<update id="updateReport" parameterType="com.pengyue.ipo.bean.Report">
+		update tb_xt_report
+		set
+		name=#{name},userid=#{userId},modelid=#{modelId},issave=#{issave},
+		reporturl=#{reportUrl},querytimeks=#{querytimeks},querytimejs=#{querytimejs}
+		where id = #{id}
+	</update>
+
+</mapper>
